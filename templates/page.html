@@ -8,24 +8,39 @@
         <div>
           <div class="principal-container">
             {% include "components/errors.html" %}
-
-            <div id="principal-info" class="d-flex align-items-start">
+            <div class="row">
+              <div class="col-md-4">
+                <div id="principal-info" class="d-flex align-items-start">
               <h1 class="red-text text-uppercase welcome-text">Bienvenido al CTF <br> <span class="text-light first-welcome">NGIS CTF 2026</span> <br><span class="subtitle-text">Cyber Range Experience</span></h1>
             </div>
 
             <hr class="line-welcome">
 
             <div>
-              <p class="text-uppercase">Aprende, compite, protégete</p>
+              <p class="text-uppercase welcome-learn">Aprende, compite, protégete</p>
             </div>
 
-            <div>
-              <p>Pon a prueba tus habilidades en cibeserguridad resolviendo retos reales en diferentes categorias.</p>
-              <p>¿Estás listo para entrar al Cyber Range?</p>
+            <div class="d-flex border-box-red">
+              <img src="{{ url_for('views.themes', theme='custom-theme', path='img/ngis/shoot_logo.png') }}" alt="descripción" class="welcome-shoot">
+              <p>Pon a prueba tus habilidades en cibeserguridad <br> resolviendo retos reales en diferentes categorias. <br>
+              <span class="red-text">¿Estás listo para entrar al Cyber Range?</span></p>
             </div>
-
-            <div>
+              </div>
+            </div>
+            <div class="border-box-red">
               <p class="text-uppercase">Información del evento</p>
+              <div class="row d-flex justify-content-between">
+                <div class="col-md-6"> 
+                  <div class="d-flex">
+                    <i class="fa fa-info-circle"></i>
+                    <p>Fecha</p>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <p>9 de agosto</p>
+                </div>
+              </div>
             </div>
 
             <div>

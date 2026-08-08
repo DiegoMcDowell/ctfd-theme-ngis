@@ -8,6 +8,7 @@
 
 .principal-container {
   margin-top: 50px;
+  min-height: 60vh
 }
 
 .welcome-text {
@@ -30,4 +31,14 @@
   width: 25%;
   height: 5px; 
   background: linear-gradient(to right, #ff0000, #ff6666, #000000);
+}
+
+.welcome-learn {
+  letter-spacing: 2px;
+  font-size: 20px;
+}
+
+.welcome-shoot {
+  width: 75px;
+  height: 75px;
 }
