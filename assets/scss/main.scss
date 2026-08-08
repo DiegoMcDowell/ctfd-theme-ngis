@@ -11,9 +11,12 @@
 @use "includes/utils/min-height";
 @use "includes/utils/cursors";
 @use "includes/utils/lolight";
+@use "includes/components/texts";
 
 @use "includes/icons/award-icons";
 @use "includes/icons/flag-icons";
+
+@use "includes/pages/dashboard/principal";
 
 h1,
 h2 {
