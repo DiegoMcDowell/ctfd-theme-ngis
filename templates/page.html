@@ -1,9 +1,76 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="container">
-    {{ content | safe }}
-  </div>
+  {% if request.path == '/' %}
+    {% if not authed() %}
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 col offset-md-2 col-lg-6 offset-lg-3 margin-bottom-3 mt-5">
+            {% include "components/errors.html" %}
+
+            <div id="principal-info">
+              <p>Bienvenido al</p>
+              <p>NGIS CTF 2026</p>
+              <p class="text-uppercase">Cyber Range Experience</p>
+            </div>
+
+            <div>
+              <p class="text-uppercase">Aprende, compite, protégete</p>
+            </div>
+
+            <div>
+              <p>Pon a prueba tus habilidades en cibeserguridad resolviendo retos reales en diferentes categorias.</p>
+              <p>¿Estás listo para entrar al Cyber Range?</p>
+            </div>
+
+            <div>
+              <p class="text-uppercase">Información del evento</p>
+            </div>
+
+            <div>
+              <p>Clasificación en vivo</p>
+            </div>
+
+            <div>
+              <p>Tiempo restante</p>
+
+              <p>Banderas capturadas</p>
+            </div>
+
+            {% with form = Forms.auth.LoginForm() %}
+              <form method="post" action="{{ url_for('auth.login') }}" accept-charset="utf-8">
+                <div class="mb-3">
+                  <b>{{ form.name.label(class="form-label") }}</b>
+                  {{ form.name(class="form-control", autocomplete="username email") }}
+                </div>
+
+                <div class="mb-3">
+                  <b>{{ form.password.label(class="form-label") }}</b>
+                  {{ form.password(class="form-control", autocomplete="current-password") }}
+                </div>
+
+                <div class="row pt-3">
+                  <div class="col-6 col-md-8">
+                    <a class="align-middle" href="{{ url_for('auth.reset_password') }}">
+                      {% trans %}Forgot your password?{% endtrans %}
+                    </a>
+                  </div>
+                  <div class="col-6 col-md-4">
+                    {{ form.submit(class="btn btn-block btn-primary w-100") }}
+                  </div>
+                </div>
+
+                {{ form.nonce() }}
+              </form>
+            {% endwith %}
+          </div>
+        </div>
+      </div>
+    {% endif %}
+
+  {% else %}
+
+  {% endif %}
 {% endblock %}
 
 {% block scripts %}
