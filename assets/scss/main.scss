@@ -11,6 +11,7 @@
 @use "includes/utils/min-height";
 @use "includes/utils/cursors";
 @use "includes/utils/lolight";
+@use "includes/utils/backgrounds";
 @use "includes/components/texts";
 @use "includes/components/borders";
 
@@ -18,6 +19,7 @@
 @use "includes/icons/flag-icons";
 
 @use "includes/pages/dashboard/principal";
+@use "includes/pages/scoreboard";
 
 h1,
 h2 {

@@ -3,86 +3,105 @@
 {% block content %}
   {% if request.path == '/' %}
     {% if not authed() %}
-    <div id="login-hero">
-      <div class="container">
-        <div>
-          <div class="principal-container">
-            {% include "components/errors.html" %}
-            <div class="row">
-              <div class="col-md-4">
-                <div id="principal-info" class="d-flex align-items-start">
-              <h1 class="red-text text-uppercase welcome-text">Bienvenido al CTF <br> <span class="text-light first-welcome">NGIS CTF 2026</span> <br><span class="subtitle-text">Cyber Range Experience</span></h1>
-            </div>
+      <section id="login-hero">
+        <div class="hero-shell">
+          {% include "components/errors.html" %}
+          <div class="row hero-row align-items-center g-4">
 
-            <hr class="line-welcome">
+            {# ───────────── Columna Izquierda Bienvenida  ───────────── #}
+            <div class="col-12 col-lg-4 hero-left">
+              <h1 class="red-text text-uppercase welcome-text">
+                Bienvenido al CTF <br>
+                <span class="text-light first-welcome">NGIS CTF 2026</span> <br>
+                <span class="subtitle-text">Cyber Range Experience</span>
+              </h1>
 
-            <div>
+              <hr class="line-welcome">
+
               <p class="text-uppercase welcome-learn">Aprende, compite, protégete</p>
-            </div>
 
-            <div class="d-flex border-box-red">
-              <img src="{{ url_for('views.themes', theme='custom-theme', path='img/ngis/shoot_logo.png') }}" alt="descripción" class="welcome-shoot">
-              <p>Pon a prueba tus habilidades en cibeserguridad <br> resolviendo retos reales en diferentes categorias. <br>
-              <span class="red-text">¿Estás listo para entrar al Cyber Range?</span></p>
-            </div>
+              <div class="d-flex align-items-center gap-3 border-box-red hero-note">
+                <img
+                  src="{{ url_for('views.themes', theme='custom-theme', path='img/ngis/shoot_logo.png') }}"
+                  alt=""
+                  class="welcome-shoot flex-shrink-0">
+                <p class="mb-0">
+                  Pon a prueba tus habilidades en cibeserguridad
+                  resolviendo retos reales en diferentes categorias.
+                  <span class="red-text d-block">¿Estás listo para entrar al Cyber Range?</span>
+                </p>
               </div>
             </div>
-            <div class="border-box-red">
-              <p class="text-uppercase">Información del evento</p>
-              <div class="row d-flex justify-content-between">
-                <div class="col-md-6"> 
-                  <div class="d-flex">
-                    <i class="fa fa-info-circle"></i>
-                    <p>Fecha</p>
+
+            {# ───────── Columna central vacia ───────── #}
+            <div class="d-none d-lg-block col-lg-4 hero-center" aria-hidden="true"></div>
+
+            {# ───────────── Columna derecha Login ───────────── #}
+            <div class="col-12 col-lg-4 hero-right">
+              {% with form = Forms.auth.LoginForm() %}
+                <form
+                  method="post"
+                  action="{{ url_for('auth.login') }}"
+                  accept-charset="utf-8"
+                  class="border-box-red login-card">
+
+                  <div class="mb-3">
+                    <b>{{ form.name.label(class="form-label") }}</b>
+                    {{ form.name(class="form-control", autocomplete="username email") }}
                   </div>
-                </div>
 
-                <div class="col-md-6">
-                  <p>9 de agosto</p>
-                </div>
-              </div>
-            </div>
+                  <div class="mb-3">
+                    <b>{{ form.password.label(class="form-label") }}</b>
+                    {{ form.password(class="form-control", autocomplete="current-password") }}
+                  </div>
 
-            <div>
-              <p>Clasificación en vivo</p>
-            </div>
+                  {{ form.submit(class="btn btn-primary w-100 mt-2") }}
 
-            <div>
-              <p>Tiempo restante</p>
-
-              <p>Banderas capturadas</p>
-            </div>
-
-            {% with form = Forms.auth.LoginForm() %}
-              <form method="post" action="{{ url_for('auth.login') }}" accept-charset="utf-8">
-                <div class="mb-3">
-                  <b>{{ form.name.label(class="form-label") }}</b>
-                  {{ form.name(class="form-control", autocomplete="username email") }}
-                </div>
-
-                <div class="mb-3">
-                  <b>{{ form.password.label(class="form-label") }}</b>
-                  {{ form.password(class="form-control", autocomplete="current-password") }}
-                </div>
-
-                <div class="row pt-3">
-                  <div class="col-6 col-md-8">
-                    <a class="align-middle" href="{{ url_for('auth.reset_password') }}">
+                  <div class="text-center mt-3">
+                    <a href="{{ url_for('auth.reset_password') }}">
                       {% trans %}Forgot your password?{% endtrans %}
                     </a>
                   </div>
-                  <div class="col-6 col-md-4">
-                    {{ form.submit(class="btn btn-block btn-primary w-100") }}
-                  </div>
-                </div>
 
-                {{ form.nonce() }}
-              </form>
-            {% endwith %}
+                  {{ form.nonce() }}
+                </form>
+              {% endwith %}
+            </div>
+          </div>
+
+          {# ───── Franja de tarjetas: vive dentro del hero para que
+                  entre en la primera pantalla, anclada al fondo ───── #}
+          <div class="row hero-strip g-4">
+            <div class="col-12 col-md-4">
+              <div class="border-box-red strip-card h-100">
+                <p class="text-uppercase">Información del evento</p>
+
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="d-flex align-items-center gap-2">
+                    <i class="fa fa-info-circle"></i> Fecha
+                  </span>
+                  <span>9 de agosto</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-4">
+              <div class="border-box-red strip-card h-100">
+                <p class="text-uppercase">Clasificación en vivo</p>
+                <div id="scoreboard-widget">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-4">
+              <div class="border-box-red strip-card h-100">
+                <p class="text-uppercase">Tiempo restante</p>
+                <p class="mb-0">Banderas capturadas</p>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+      </section>
     {% endif %}
 
   {% else %}
