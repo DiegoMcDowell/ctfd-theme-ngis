@@ -4,7 +4,7 @@ $nav-offset: 3.5rem;
   display: flex;
   flex-direction: column;
   min-height: calc(100vh - #{$nav-offset});
-  min-height: calc(100svh - #{$nav-offset}); 
+  min-height: calc(100svh - #{$nav-offset});
   background-image: url("/themes/custom-theme/static/img/ngis/backgorund_cave.png");
   background-size: cover;
   background-position: center;
