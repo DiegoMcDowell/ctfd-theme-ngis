@@ -1,7 +1,9 @@
+@use "colors" as c;
+
 @forward "bootstrap/scss/bootstrap" with (
   $info: #3d8a47,
-  $navbar-dark-color: rgba(13, 255, 0, 0.8),
+  $dark: c.$color-black,
+  $navbar-dark-color: c.$color-red,
   $navbar-dark-hover-color: #ffffff,
-  $navbar-padding-y: 1rem
+  $navbar-padding-y: 1rem,
 );
-
