@@ -72,8 +72,15 @@ button.challenge-button {
     border-color: #28a745;
     box-shadow: none;
 
-    .challenge-name, p { color: #28a745; }
-    .challenge-value, span { color: rgba(40, 167, 69, 0.8); }
+    .challenge-name,
+    p {
+      color: #28a745;
+    }
+
+    .challenge-value,
+    span {
+      color: rgba(40, 167, 69, 0.8);
+    }
 
     &::after {
       content: "\f00c";
@@ -99,11 +106,22 @@ button.challenge-button {
 
   .modal-header {
     border-bottom: 1px solid rgba(229, 9, 20, 0.2);
-    .modal-title { font-weight: 700; text-transform: uppercase; }
-    .btn-close, .close { filter: invert(1); opacity: 0.8; }
+
+    .modal-title {
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .btn-close,
+    .close {
+      filter: invert(1);
+      opacity: 0.8;
+    }
   }
 
-  .modal-footer { border-top: 1px solid rgba(229, 9, 20, 0.2); }
+  .modal-footer {
+    border-top: 1px solid rgba(229, 9, 20, 0.2);
+  }
 
   #challenge-input,
   .flag-input,
@@ -140,11 +158,21 @@ button.challenge-button {
   }
 
   #result-notification,
-  .notification-row { margin-top: 1rem; }
+  .notification-row {
+    margin-top: 1rem;
+  }
 }
 
 // responsive mobile (375px)
 @media (max-width: 576px) {
-  .challenges-container { padding-left: 0.75rem; padding-right: 0.75rem; }
-  .modal-dialog { margin: 0.5rem; }
+  .challenges-container {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
+  .modal-dialog {
+    margin: 0.5rem;
+  }
 }
+
+//estilos terminados para challenges
