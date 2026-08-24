@@ -1,9 +1,11 @@
 @use "colors" as c;
 
 @forward "bootstrap/scss/bootstrap" with (
+  $primary: c.$color-red, // o el color que quieras que sea el "primary" de tu marca
   $info: #3d8a47,
   $dark: c.$color-black,
   $navbar-dark-color: c.$color-red,
   $navbar-dark-hover-color: #ffffff,
   $navbar-padding-y: 1rem,
 );
+

@@ -47,12 +47,22 @@
 
                   <div class="mb-3">
                     <b>{{ form.name.label(class="form-label") }}</b>
-                    {{ form.name(class="form-control", autocomplete="username email") }}
+                    <div class="input-group">
+                      <span class="input-group-text">
+                        <i class="fas fa-user"></i>
+                      </span>
+                      {{ form.name(class="form-control", autocomplete="username email") }}
+                    </div>
                   </div>
 
                   <div class="mb-3">
                     <b>{{ form.password.label(class="form-label") }}</b>
-                    {{ form.password(class="form-control", autocomplete="current-password") }}
+                    <div class="input-group">
+                      <span class="input-group-text">
+                        <i class="fas fa-lock"></i>
+                      </span>
+                      {{ form.password(class="form-control", autocomplete="current-password") }}
+                    </div>
                   </div>
 
                   {{ form.submit(class="btn btn-primary w-100 mt-2") }}
@@ -80,7 +90,28 @@
                   <span class="d-flex align-items-center gap-2">
                     <i class="fa fa-info-circle"></i> Fecha
                   </span>
-                  <span>9 de agosto</span>
+                  <span>18 de Septiembre, 2026</span>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="d-flex align-items-center gap-2">
+                    <i class="fa fa-info-circle"></i> Duración
+                  </span>
+                  <span>6 horas</span>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="d-flex align-items-center gap-2">
+                    <i class="fa fa-info-circle"></i> Duración
+                  </span>
+                  <span>6 horas</span>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="d-flex align-items-center gap-2">
+                    <i class="fa fa-info-circle"></i> Duración
+                  </span>
+                  <span>6 horas</span>
                 </div>
               </div>
             </div>
@@ -96,6 +127,29 @@
             <div class="col-12 col-md-4">
               <div class="border-box-red strip-card h-100">
                 <p class="text-uppercase">Tiempo restante</p>
+                <div class="dashboard-widget">
+                  <div class="dashboard-widget__header">
+                    <i class="fas fa-stopwatch"></i>
+                    <span>{% trans %}TIEMPO RESTANTE{% endtrans %}</span>
+                  </div>
+
+                  <div class="dashboard-widget__timer" id="ctf-countdown" data-end-time="{{ Configs.end }}">
+                    <div class="timer-block">
+                      <span class="timer-value" id="cd-hours">00</span>
+                      <span class="timer-label">{% trans %}HORAS{% endtrans %}</span>
+                    </div>
+                    <span class="timer-sep">:</span>
+                    <div class="timer-block">
+                      <span class="timer-value" id="cd-minutes">00</span>
+                      <span class="timer-label">{% trans %}MINUTOS{% endtrans %}</span>
+                    </div>
+                    <span class="timer-sep">:</span>
+                    <div class="timer-block">
+                      <span class="timer-value" id="cd-seconds">00</span>
+                      <span class="timer-label">{% trans %}SEGUNDOS{% endtrans %}</span>
+                    </div>
+                  </div>
+                </div>
                 <p class="mb-0">Banderas capturadas</p>
               </div>
             </div>

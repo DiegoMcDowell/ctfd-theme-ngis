@@ -1,0 +1,57 @@
+@use "../../utils/colors" as c;
+
+.dashboard-widget {
+  background-color: c.$color-card-bg;
+  border: 1px solid c.$color-card-border;
+  border-radius: 12px;
+  padding: 1.5rem;
+  color: #fff;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+
+    i {
+      color: c.$color-red-accent;
+    }
+  }
+
+  &__timer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+}
+
+.timer-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timer-value {
+  font-family: "Courier New", monospace;
+  font-size: 2.75rem;
+  font-weight: 700;
+  color: c.$color-red-accent;
+  line-height: 1;
+}
+
+.timer-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 0.25rem;
+}
+
+.timer-sep {
+  font-size: 2.5rem;
+  color: c.$color-red-accent;
+  align-self: flex-start;
+  margin-top: 0.25rem;
+}
