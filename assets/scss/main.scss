@@ -19,9 +19,9 @@
 @use "includes/icons/award-icons";
 @use "includes/icons/flag-icons";
 
-@use "includes/pages/dashboard/principal";
-@use "includes/pages/scoreboard";
+@use "includes/pages/dashboard/principal" as dashboard-page;
 @use "includes/pages/dashboard/clock";
+@use "includes/pages/scoreboard/principal" as scoreboard-page;
 
 h1,
 h2 {
