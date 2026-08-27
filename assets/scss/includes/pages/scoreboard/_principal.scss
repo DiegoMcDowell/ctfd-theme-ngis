@@ -12,11 +12,53 @@
 }
 
 .scoreboard-graph-panel {
+    --cut: 22px;
+
+    position: relative;
     background-color: c.$color-panel-bg;
-    border: 1px solid c.$color-panel-border;
-    border-radius: 12px;
+    clip-path: polygon(
+        0 0,
+        calc(100% - var(--cut)) 0,
+        100% var(--cut),
+        100% 100%,
+        var(--cut) 100%,
+        0 calc(100% - var(--cut))
+    );
     box-shadow: 0 0 25px c.$color-panel-glow;
     padding: 1.25rem 1.5rem 1.5rem;
+
+    // Crisp border that follows the cut silhouette (border/border-radius
+    // can't do this, so it's a gradient masked to a ring shape instead).
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        clip-path: inherit;
+        padding: 1px;
+        background: c.$color-panel-border;
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        mask-composite: exclude;
+        pointer-events: none;
+    }
+
+    // Glowing accent streak on the two cut corners. drop-shadow (not
+    // box-shadow) is used because it isn't clipped by the parent's
+    // clip-path, so the glow can actually bleed past the edge.
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background:
+            linear-gradient(-45deg, transparent calc(100% - var(--cut) - 1.5px), c.$color-panel-border calc(100% - var(--cut) - 1.5px), c.$color-panel-border calc(100% - var(--cut) + 1.5px), transparent calc(100% - var(--cut) + 1.5px)) top right / var(--cut) var(--cut) no-repeat,
+            linear-gradient(-45deg, transparent calc(var(--cut) - 1.5px), c.$color-panel-border calc(var(--cut) - 1.5px), c.$color-panel-border calc(var(--cut) + 1.5px), transparent calc(var(--cut) + 1.5px)) bottom left / var(--cut) var(--cut) no-repeat;
+        filter: drop-shadow(0 0 6px c.$color-panel-border);
+        pointer-events: none;
+    }
 }
 
 .scoreboard-graph-header {
