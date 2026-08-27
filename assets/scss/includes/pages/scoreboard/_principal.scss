@@ -1,14 +1,31 @@
 @use "../../utils/colors" as c;
+$nav-offset: 3.5rem;
+
+#scoreboard-page {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - #{$nav-offset});
+  min-height: calc(100svh - #{$nav-offset}); 
+  background-image:
+      linear-gradient(to right, #000 0%, rgba(0, 0, 0, 0.85) 8%, rgba(0, 0, 0, 0.4) 35%, transparent 20%),
+      url("/themes/custom-theme/static/img/ngis/background_scoreboard.png");
+  background-size: cover, cover;
+  background-position: center, center;
+  background-repeat: no-repeat, no-repeat;
+}
 
 .hero-scoreboard {
     h1 {
-        font-size: 80px;
+        font-size: 100px;
         font-weight: 700;
     }
 }
 
 .hero-scoreboard-slogan {
     color: c.$color-red-accent;
+    font-weight: 900;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9), 0 0 12px rgba(0, 0, 0, 0.7);
+    font-size: 40px;
 }
 
 .scoreboard-graph-panel {

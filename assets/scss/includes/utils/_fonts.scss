@@ -4,6 +4,7 @@
 // Include both normal and bold weights
 @include Lato.fontFace($fontDir: "../webfonts", $weight: 400);
 @include Lato.fontFace($fontDir: "../webfonts", $weight: 700);
+@include Lato.fontFace($fontDir: "../webfonts", $weight: 900);
 
 @include Raleway.fontFace($fontDir: "../webfonts");
 
