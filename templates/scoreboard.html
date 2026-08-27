@@ -66,19 +66,17 @@
       </div>
 
       <template x-if="showAll">
-        <div class="col-md-12">
+        <div class="col-md-12 scoreboard-standings-panel">
           <template x-if="brackets.length && standings.length">
-            <div class="py-3">
-              <nav class="nav nav-pills nav-fill">
-                <button :class="{'nav-link': true, 'active': !activeBracket}" @click="activeBracket=null">{% trans %}All{% endtrans %}</button>
-                <template x-for="bracket in brackets">
-                  <button :class="{'nav-link': true, 'active': activeBracket == bracket.id}" x-text="bracket.name" @click="activeBracket=bracket.id"></button>
-                </template>
-              </nav>
-            </div>
+            <nav class="nav nav-fill scoreboard-bracket-nav">
+              <button :class="{'nav-link': true, 'active': !activeBracket}" @click="activeBracket=null">{% trans %}All{% endtrans %}</button>
+              <template x-for="bracket in brackets">
+                <button :class="{'nav-link': true, 'active': activeBracket == bracket.id}" x-text="bracket.name" @click="activeBracket=bracket.id"></button>
+              </template>
+            </nav>
           </template>
 
-          <table class="table table-striped align-middle" x-show="standings.length">
+          <table class="table align-middle scoreboard-standings-table" x-show="standings.length">
             <thead>
             <tr>
               <th style="width: 10px">{% trans %}Place{% endtrans %}</th>

@@ -147,10 +147,41 @@
     text-decoration: none;
     box-shadow: 0 0 18px color-mix(in srgb, var(--accent) 20%, transparent);
     transition: transform 0.15s ease, box-shadow 0.15s ease;
+    overflow: hidden;
+
+    &::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 2px;
+        top: -10%;
+        background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        box-shadow: 0 0 10px 1px var(--accent);
+        animation: scoreboard-card-scanline 2.8s ease-in-out infinite;
+        pointer-events: none;
+    }
 
     &:hover {
         transform: translateY(-2px);
         box-shadow: 0 0 24px color-mix(in srgb, var(--accent) 40%, transparent);
+    }
+}
+
+@keyframes scoreboard-card-scanline {
+    0% {
+        top: -10%;
+        opacity: 0;
+    }
+    15% {
+        opacity: 1;
+    }
+    85% {
+        opacity: 1;
+    }
+    100% {
+        top: 105%;
+        opacity: 0;
     }
 }
 
@@ -226,16 +257,17 @@
     justify-content: center;
     gap: 0.5rem;
     width: 100%;
-    background: transparent;
-    border: none;
+    background-color: c.$color-panel-bg;
+    border: 1px solid c.$color-control-border;
+    border-radius: 8px;
     color: c.$color-text-muted;
     font-size: 0.8rem;
     font-weight: 600;
     letter-spacing: 0.5px;
     text-transform: uppercase;
     cursor: pointer;
-    padding: 0.5rem 1rem;
-    transition: color 0.15s ease;
+    padding: 0.6rem 1rem;
+    transition: color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 
     i {
         transition: transform 0.15s ease;
@@ -245,7 +277,105 @@
         transform: rotate(180deg);
     }
 
-    &:hover {
+    &:hover,
+    &:focus-visible {
         color: c.$color-white;
+        border-color: c.$color-panel-border;
+        box-shadow: 0 0 12px c.$color-panel-glow;
+    }
+
+    &:focus-visible {
+        outline: none;
+    }
+}
+
+.scoreboard-standings-panel {
+    background-color: c.$color-panel-bg;
+    border: 1px solid c.$color-panel-border;
+    border-radius: 12px;
+    box-shadow: 0 0 25px c.$color-panel-glow;
+    padding: 0.5rem 1.25rem 1.25rem;
+    margin-top: 1rem;
+}
+
+.scoreboard-bracket-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 1rem 0;
+
+    .nav-link {
+        background-color: transparent;
+        border: 1px solid c.$color-control-border;
+        border-radius: 6px;
+        color: c.$color-red-accent;
+        font-size: 0.85rem;
+        font-weight: 600;
+        padding: 0.5rem 1rem;
+        transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+
+        &:hover {
+            color: c.$color-white;
+            border-color: c.$color-panel-border;
+        }
+
+        &.active {
+            background-color: c.$color-panel-border;
+            border-color: c.$color-panel-border;
+            color: c.$color-white;
+        }
+    }
+}
+
+.scoreboard-standings-table {
+    color: c.$color-white;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+    border-radius: 8px;
+
+    thead th {
+        background-color: c.$color-control-bg;
+        color: c.$color-text-muted;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        border-bottom: 1px solid c.$color-control-border;
+        padding-top: 0.85rem;
+        padding-bottom: 0.85rem;
+    }
+
+    tbody tr {
+        background-color: c.$color-panel-bg;
+
+        &:nth-of-type(odd) {
+            background-color: c.$color-control-bg;
+        }
+
+        &:hover {
+            background-color: color-mix(in srgb, c.$color-panel-border 12%, c.$color-panel-bg);
+        }
+    }
+
+    tbody td,
+    tbody th {
+        border-bottom: 1px solid c.$color-control-border;
+        color: c.$color-white;
+    }
+
+    tbody tr:last-child td,
+    tbody tr:last-child th {
+        border-bottom: none;
+    }
+
+    tbody a {
+        color: c.$color-red-accent;
+        text-decoration: none;
+        font-weight: 600;
+
+        &:hover {
+            text-decoration: underline;
+        }
     }
 }
