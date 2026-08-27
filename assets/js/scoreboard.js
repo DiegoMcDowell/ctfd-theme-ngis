@@ -1,5 +1,6 @@
 import Alpine from "alpinejs";
 import * as echarts from "echarts/core";
+import { colorHash } from "@ctfdio/ctfd-js/ui";
 import CTFd from "./index";
 import { getOption } from "./utils/graphs/echarts/scoreboard";
 import { embed } from "./utils/graphs/echarts";
@@ -87,6 +88,19 @@ Alpine.data("ScoreboardList", () => ({
   standings: [],
   brackets: [],
   activeBracket: null,
+  showAll: false,
+
+  filteredStandings() {
+    return this.standings.filter(i => this.activeBracket ? i.bracket_id == this.activeBracket : true);
+  },
+
+  topStandings() {
+    return this.filteredStandings().slice(0, 5);
+  },
+
+  accentColor(standing) {
+    return colorHash(standing.name + standing.account_id);
+  },
 
   async update() {
     this.brackets = await CTFd.pages.scoreboard.getBrackets(CTFd.config.userMode);

@@ -42,43 +42,68 @@
     </div>
 
     <div id="scoreboard" class="row scoreboard-panel" x-data="ScoreboardList">
-      <template x-if="brackets.length && standings.length">
-        <div class="col-md-12 py-3">
-          <nav class="nav nav-pills nav-fill">
-            <button :class="{'nav-link': true, 'active': !activeBracket}" @click="activeBracket=null">{% trans %}All{% endtrans %}</button>
-            <template x-for="bracket in brackets">
-              <button :class="{'nav-link': true, 'active': activeBracket == bracket.id}" x-text="bracket.name" @click="activeBracket=bracket.id"></button>
-            </template>
-          </nav>
+      <div class="col-md-12" x-show="topStandings().length">
+        <div class="scoreboard-top-cards">
+          <template x-for="(standing, index) in topStandings()" :key="standing.account_id">
+            <a class="scoreboard-top-card" :href="standing.account_url" :style="{'--accent': accentColor(standing)}">
+              <span class="scoreboard-top-card-rank" x-text="index + 1"></span>
+              <span class="scoreboard-top-card-info">
+                <span class="scoreboard-top-card-name" x-text="standing.name"></span>
+                <span class="scoreboard-top-card-score">
+                  <span class="scoreboard-top-card-score-value" x-text="standing.score"></span>
+                  <span class="scoreboard-top-card-score-label">{% trans %}PTS{% endtrans %}</span>
+                </span>
+              </span>
+              <span class="scoreboard-top-card-avatar"><i class="fas fa-skull"></i></span>
+            </a>
+          </template>
+        </div>
+
+        <button type="button" class="scoreboard-toggle-all" :class="{active: showAll}" @click="showAll = !showAll">
+          <span x-text="showAll ? '{% trans %}Ocultar equipos{% endtrans %}' : '{% trans %}Ver todos los equipos{% endtrans %}'"></span>
+          <i class="fas fa-chevron-down"></i>
+        </button>
+      </div>
+
+      <template x-if="showAll">
+        <div class="col-md-12">
+          <template x-if="brackets.length && standings.length">
+            <div class="py-3">
+              <nav class="nav nav-pills nav-fill">
+                <button :class="{'nav-link': true, 'active': !activeBracket}" @click="activeBracket=null">{% trans %}All{% endtrans %}</button>
+                <template x-for="bracket in brackets">
+                  <button :class="{'nav-link': true, 'active': activeBracket == bracket.id}" x-text="bracket.name" @click="activeBracket=bracket.id"></button>
+                </template>
+              </nav>
+            </div>
+          </template>
+
+          <table class="table table-striped align-middle" x-show="standings.length">
+            <thead>
+            <tr>
+              <th style="width: 10px">{% trans %}Place{% endtrans %}</th>
+              <th class="text-start ps-3">{{ get_mode_as_word(capitalize=True) }}</th>
+              <th>{% trans %}Score{% endtrans %}</th>
+            </tr>
+            </thead>
+
+            <tbody>
+              <template x-for="(standing, index) in filteredStandings()">
+                <tr>
+                  <th scope="row" class="text-center" x-text="index + 1"></th>
+                  <td class="text-start">
+                    <a :href="standing.account_url" x-text="standing.name"></a>
+                    <template x-if="standing.bracket_name">
+                      <span class="badge bg-secondary ms-2" x-text="standing.bracket_name"></span>
+                    </template>
+                  </td>
+                  <td x-text="standing.score"></td>
+                </tr>
+              </template>
+            </tbody>
+          </table>
         </div>
       </template>
-
-      <div class="col-md-12" x-show="standings.length">
-        <table class="table table-striped align-middle">
-          <thead>
-          <tr>
-            <th style="width: 10px">{% trans %}Place{% endtrans %}</th>
-            <th class="text-start ps-3">{{ get_mode_as_word(capitalize=True) }}</th>
-            <th>{% trans %}Score{% endtrans %}</th>
-          </tr>
-          </thead>
-
-          <tbody>
-            <template x-for="(standing, index) in standings.filter(i => activeBracket ? i.bracket_id==activeBracket : true)">
-              <tr>
-                <th scope="row" class="text-center" x-text="index + 1"></th>
-                <td class="text-start">
-                  <a :href="standing.account_url" x-text="standing.name"></a>
-                  <template x-if="standing.bracket_name">
-                    <span class="badge bg-secondary ms-2" x-text="standing.bracket_name"></span>
-                  </template>
-                </td>
-                <td x-text="standing.score"></td>
-              </tr>
-            </template>
-          </tbody>
-        </table>
-      </div>
 
       <div class="col-md-12" x-show="! standings.length">
         <h3 class="text-center text-muted">{% trans %}Scoreboard is empty{% endtrans %}</h3>
