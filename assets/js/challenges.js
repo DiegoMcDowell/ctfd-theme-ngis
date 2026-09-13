@@ -115,7 +115,7 @@ Alpine.data("Challenge", () => ({
       "modal-dialog": true,
     };
     try {
-      let size = CTFd.config.themeSettings.challenge_window_size;
+      let size = CTFd.config.themeSettings.challenge_window_size || xl;
       switch (size) {
         case "sm":
           styles["modal-sm"] = true;
