@@ -16,6 +16,32 @@ function addTargetBlank(html) {
   return view.documentElement.outerHTML;
 }
 
+function confirmUnlockModal() {
+  return new Promise(resolve => {
+    const modalEl = document.getElementById("hint-confirm-modal");
+    const modal = Modal.getOrCreateInstance(modalEl);
+    const acceptBtn = document.getElementById("hint-confirm-accept");
+
+    let answered = false;
+
+    function onAccept() {
+      answered = true;
+      modal.hide();
+    }
+
+    function onHidden() {
+      acceptBtn.removeEventListener("click", onAccept);
+      modalEl.removeEventListener("hidden.bs.modal", onHidden);
+      resolve(answered);
+    }
+
+    acceptBtn.addEventListener("click", onAccept);
+    modalEl.addEventListener("hidden.bs.modal", onHidden, { once: true });
+
+    modal.show();
+  });
+}
+
 window.Alpine = Alpine;
 
 Alpine.store("challenge", {
@@ -42,7 +68,7 @@ Alpine.data("Hint", () => ({
       if (hint.content) {
         this.html = addTargetBlank(hint.html);
       } else {
-        let answer = await CTFd.pages.challenge.displayUnlock(this.id);
+        let answer = await confirmUnlockModal();
         if (answer) {
           let unlock = await CTFd.pages.challenge.loadUnlock(this.id);
 

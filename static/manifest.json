@@ -30,7 +30,7 @@
     ]
   },
   "assets/js/challenges.js": {
-    "file": "assets/challenges.407f8a35.js",
+    "file": "assets/challenges.b1301a3e.js",
     "src": "assets/js/challenges.js",
     "isEntry": true,
     "imports": [
@@ -121,35 +121,14 @@
     "src": "assets/js/color_mode_switcher.js",
     "isEntry": true
   },
-  "_echarts.36287f22.js": {
-    "file": "assets/echarts.36287f22.js"
+  "_echarts.06a6bb8d.js": {
+    "file": "assets/echarts.06a6bb8d.js"
   },
   "_clipboard.9201b5be.js": {
     "file": "assets/clipboard.9201b5be.js",
     "imports": [
       "assets/js/index.js"
     ]
-  },
-  "_index.4a610f7e.js": {
-    "file": "assets/index.4a610f7e.js",
-    "imports": [
-      "_echarts.36287f22.js"
-    ]
-  },
-  "_userscore.41b9c99a.js": {
-    "file": "assets/userscore.41b9c99a.js",
-    "imports": [
-      "assets/js/index.js",
-      "_index.4a610f7e.js"
-    ]
-  },
-  "assets/scss/main.scss": {
-    "file": "assets/main.35f03652.css",
-    "src": "assets/scss/main.scss",
-    "isEntry": true
-  },
-  "_echarts.06a6bb8d.js": {
-    "file": "assets/echarts.06a6bb8d.js"
   },
   "_index.88707590.js": {
     "file": "assets/index.88707590.js",
@@ -163,5 +142,10 @@
       "assets/js/index.js",
       "_index.88707590.js"
     ]
+  },
+  "assets/scss/main.scss": {
+    "file": "assets/main.35f03652.css",
+    "src": "assets/scss/main.scss",
+    "isEntry": true
   }
 }
