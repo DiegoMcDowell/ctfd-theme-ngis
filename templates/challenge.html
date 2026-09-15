@@ -38,7 +38,7 @@
             {% if solves != None %}
             <li class="nav-item">
               <button class="nav-link challenge-solves" data-bs-target="#solves" @click="showSolves()">
-                  {{ ngettext("%(num)d Solve", "%(num)d Solves", solves) }}
+                 Resuelto por:
               </button>
             </li>
             {% endif %}
@@ -269,7 +269,7 @@
                             </button>
                           </div>
                           <div x-show="ratingSubmitted" class="text-success mt-2">
-                            <small>{% trans %}Thank you for your rating!{% endtrans %}</small>
+                            <small>{% trans %}¡Gracias por tu calificación!{% endtrans %}</small>
                           </div>
                         </div>
                       </div>
