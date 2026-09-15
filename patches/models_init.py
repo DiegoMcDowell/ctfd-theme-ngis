@@ -644,6 +644,7 @@ class Teams(db.Model):
     website = db.Column(db.String(128))
     affiliation = db.Column(db.String(128))
     country = db.Column(db.String(32))
+    icon = db.Column(db.String(256), nullable=True)
     bracket_id = db.Column(
         db.Integer, db.ForeignKey("brackets.id", ondelete="SET NULL")
     )

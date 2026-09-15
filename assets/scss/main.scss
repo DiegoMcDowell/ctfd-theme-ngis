@@ -6,6 +6,7 @@
 @use "includes/components/sticky-footer";
 @use "includes/components/graphs";
 @use "includes/components/progress";
+@use "includes/components/avatar";
 
 @use "includes/utils/fonts";
 @use "includes/utils/opacity";
@@ -25,6 +26,7 @@
 @use "includes/pages/dashboard/clock";
 @use "includes/pages/scoreboard/principal" as scoreboard-page;
 @use "includes/pages/challenges" as challenges-page;
+@use "includes/pages/teams" as teams-page;
 
 h1,
 h2 {

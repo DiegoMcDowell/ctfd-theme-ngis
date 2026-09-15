@@ -1,0 +1,100 @@
+{% with form = Forms.teams.TeamCreateForm() %}
+{% from "admin/macros/forms.html" import render_extra_fields %}
+<form id="team-info-create-form" method="POST">
+	<div class="form-group">
+		{{ form.name.label }}
+		{{ form.name(class="form-control", autocomplete="off") }}
+	</div>
+	<div class="form-group">
+		{{ form.email.label }}
+		{{ form.email(class="form-control", autocomplete="off") }}
+	</div>
+	<div class="form-group">
+		{{ form.password.label }}
+		{{ form.password(class="form-control", autocomplete="off") }}
+	</div>
+	<div class="form-group">
+		{{ form.website.label }}
+		<small class="float-right text-muted align-text-bottom">Optional</small>
+		{{ form.website(class="form-control", autocomplete="off") }}
+	</div>
+	<div class="form-group">
+		{{ form.icon.label }}
+		<small class="float-right text-muted align-text-bottom">Optional</small>
+		{{ form.icon(class="form-control", autocomplete="off", placeholder="https://... o /files/...") }}
+		<div class="custom-file mt-2">
+			<input type="file" class="custom-file-input" id="team-icon-file-create" accept="image/*"
+				data-icon-upload data-icon-target="#team-info-create-form input[name='icon']" data-icon-endpoint="/api/v1/files">
+			<label class="custom-file-label" for="team-icon-file-create">Upload image</label>
+		</div>
+		<small class="form-text text-muted">PNG, JPG, GIF, WEBP o SVG. Máximo 2 MB.</small>
+		<div class="mt-2" data-icon-preview>
+			{% if form.icon.data %}<img src="{{ form.icon.data }}" alt="" style="max-height: 64px;">{% endif %}
+		</div>
+	</div>
+	<div class="form-group">
+		{{ form.affiliation.label }}
+		<small class="float-right text-muted align-text-bottom">Optional</small>
+		{{ form.affiliation(class="form-control", autocomplete="off") }}
+	</div>
+	<div class="form-group">
+		{{ form.country.label }}
+		<small class="float-right text-muted align-text-bottom">Optional</small>
+		{{ form.country(class="form-control custom-select", autocomplete="off") }}
+	</div>
+
+	{{ render_extra_fields(form.extra) }}
+
+	<div class="form-group">
+		<div class="form-check form-check-inline">
+			{{ form.hidden(class="form-check-input", autocomplete="off") }}
+			{{ form.hidden.label(class="form-check-label") }}
+		</div>
+		<div class="form-check form-check-inline">
+			{{ form.banned(class="form-check-input", autocomplete="off") }}
+			{{ form.banned.label(class="form-check-label") }}
+		</div>
+	</div>
+	<div id="results">
+
+	</div>
+	{{ form.submit(id="update-team", class="btn btn-primary btn-outlined float-right modal-action") }}
+</form>
+{% endwith %}
+<script>
+// Subida del icono de equipo (admin). Se registra una sola vez por página.
+(function () {
+	if (window.__teamIconUploadBound) return;
+	window.__teamIconUploadBound = true;
+
+	document.addEventListener("change", async function (event) {
+		const input = event.target;
+		if (!input.matches("[data-icon-upload]") || !input.files.length) return;
+
+		const target = document.querySelector(input.dataset.iconTarget);
+		const preview = input.closest(".form-group").querySelector("[data-icon-preview]");
+		const formData = new FormData();
+		formData.append("file", input.files[0]);
+		formData.append("nonce", window.CTFd.config.csrfNonce);
+		formData.append("type", "standard");
+
+		const response = await fetch(window.CTFd.config.urlRoot + input.dataset.iconEndpoint, {
+			method: "POST",
+			credentials: "same-origin",
+			headers: { "CSRF-Token": window.CTFd.config.csrfNonce },
+			body: formData,
+		});
+		const body = await response.json();
+
+		if (body.success) {
+			const icon = window.CTFd.config.urlRoot + "/files/" + body.data[0].location;
+			target.value = icon;
+			preview.innerHTML = '<img src="' + icon + '" alt="" style="max-height: 64px;">';
+		} else {
+			const msg = (body.errors && body.errors.file) ? body.errors.file.join(", ") : "Upload failed";
+			preview.innerHTML = '<span class="text-danger">' + msg + "</span>";
+		}
+		input.value = "";
+	});
+})();
+</script>

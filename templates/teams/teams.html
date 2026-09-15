@@ -57,6 +57,7 @@
           {% for team in teams.items %}
             <tr>
               <td>
+                {% with size = "sm" %}{% include "components/team-avatar.html" %}{% endwith %}
                 {% if scores_visible() %}
                   <a href="{{ url_for('teams.public', team_id=team.id) }}">{{ team.name | truncate(50) }}</a>
                 {% else %}

@@ -47,6 +47,36 @@
                 </small>
               </div>
 
+              <div class="mb-2 icon-field">
+                <b>{{ form.icon.label(clas="mb-2") }}</b>
+                <div class="icon-field__row">
+                  <div class="icon-field__preview">
+                    <template x-if="icon">
+                      <img :src="icon" alt="">
+                    </template>
+                    <template x-if="!icon">
+                      <i class="fas fa-image"></i>
+                    </template>
+                  </div>
+                  <div class="icon-field__controls">
+                    {{ form.icon(class="form-control", placeholder="https://... o /files/...", **{"x-model": "icon"}) }}
+                    <div class="icon-field__actions">
+                      <label class="btn btn-outline-light btn-sm mb-0">
+                        <i class="fas fa-upload"></i> {% trans %}Subir imagen{% endtrans %}
+                        <input type="file" accept="image/*" hidden @change="uploadIcon($event)">
+                      </label>
+                      <button type="button" class="btn btn-outline-danger btn-sm" x-show="icon" @click="removeIcon()">
+                        <i class="fas fa-trash"></i> {% trans %}Quitar{% endtrans %}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <small class="form-text text-muted">
+                  {{ form.icon.description }} PNG, JPG, GIF, WEBP o SVG, máximo 2 MB.
+                </small>
+                <small class="form-text text-danger" x-show="iconError" x-text="iconError"></small>
+              </div>
+
               <div class="mb-2">
                 <b>{{ form.affiliation.label(clas="mb-2") }}</b>
                 {{ form.affiliation(class="form-control") }}
@@ -212,7 +242,10 @@
 
   <div class="jumbotron">
     <div class="container">
-      <h1 id="team-id" team-id="{{ team.id }}">{{ team.name }}</h1>
+      <h1 id="team-id" team-id="{{ team.id }}" class="team-heading">
+        {% include "components/team-avatar.html" %}
+        {{ team.name }}
+      </h1>
       {% if team.oauth_id %}
         <a href="https://majorleaguecyber.org/t/{{ team.name }}">
           <h3><span class="badge bg-primary">{% trans %}Official{% endtrans %}</span></h3>

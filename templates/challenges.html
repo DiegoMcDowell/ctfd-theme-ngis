@@ -134,6 +134,7 @@
             <div class="team-panel__identity">
               <img
                 class="team-panel__flag"
+                :src="account && account.icon ? account.icon : '{{ url_for('views.themes', theme='custom-theme', path='img/ngis/shoot_logo.png') }}'"
                 src="{{ url_for('views.themes', theme='custom-theme', path='img/ngis/shoot_logo.png') }}"
                 alt="">
               <div class="flex-grow-1" style="min-width: 0;">

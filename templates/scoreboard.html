@@ -54,7 +54,14 @@
                   <span class="scoreboard-top-card-score-label">{% trans %}PTS{% endtrans %}</span>
                 </span>
               </span>
-              <span class="scoreboard-top-card-avatar"><i class="fas fa-skull"></i></span>
+              <span class="scoreboard-top-card-avatar">
+                <template x-if="standing.icon">
+                  <img :src="standing.icon" alt="">
+                </template>
+                <template x-if="!standing.icon">
+                  <i class="fas fa-skull"></i>
+                </template>
+              </span>
             </a>
           </template>
         </div>

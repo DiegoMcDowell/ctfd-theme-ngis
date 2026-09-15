@@ -1,0 +1,41 @@
+@use "../utils/colors" as c;
+
+// Avatar de equipo (perfil, listado y encabezados)
+.team-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: color-mix(in srgb, c.$color-panel-border 12%, c.$color-surface);
+  border: 1px solid color-mix(in srgb, c.$color-panel-border 40%, transparent);
+  vertical-align: middle;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &--sm {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    margin-right: 0.5rem;
+  }
+
+  &--lg {
+    width: 96px;
+    height: 96px;
+    border-radius: 16px;
+  }
+}
+
+.team-heading {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}

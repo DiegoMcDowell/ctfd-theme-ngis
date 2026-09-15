@@ -1,0 +1,9 @@
+{# Avatar de equipo. Usa `team.icon` si existe; si no, el logo por defecto.
+   Variables: team (obligatorio), size ("sm" | "lg", opcional) #}
+<span class="team-avatar {% if size %}team-avatar--{{ size }}{% endif %}">
+  {% if team.icon %}
+    <img src="{{ team.icon }}" alt="">
+  {% else %}
+    <img src="{{ url_for('views.themes', theme='custom-theme', path='img/ngis/shoot_logo.png') }}" alt="">
+  {% endif %}
+</span>

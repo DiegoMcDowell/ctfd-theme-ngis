@@ -3,6 +3,7 @@ import CTFd from "../index";
 import { Modal } from "bootstrap";
 import { serializeJSON } from "@ctfdio/ctfd-js/forms";
 import { copyToClipboard } from "../utils/clipboard";
+import { uploadIcon, removeIcon } from "../utils/icon-upload";
 import { colorHash } from "@ctfdio/ctfd-js/ui";
 import { getOption as getUserScoreOption } from "../utils/graphs/echarts/userscore";
 import { embed } from "../utils/graphs/echarts";
@@ -17,9 +18,38 @@ Alpine.data("TeamEditModal", () => ({
   error: null,
   initial: null,
   errors: [],
+  icon: "",
+  iconError: null,
 
   init() {
     this.initial = serializeJSON(this.$el.querySelector("form"));
+    this.icon = this.initial.icon || "";
+  },
+
+  async uploadIcon(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    this.iconError = null;
+    const response = await uploadIcon("/api/v1/teams/me/icon", file);
+    event.target.value = "";
+
+    if (response.success) {
+      this.icon = response.data.icon;
+      // El icono ya se guardó en el servidor; se refleja en el form sin marcarlo como cambio pendiente
+      this.initial.icon = this.icon;
+    } else {
+      const errors = response.errors || {};
+      this.iconError = (errors.file || errors[""] || ["Upload failed"]).join(", ");
+    }
+  },
+
+  async removeIcon() {
+    const response = await removeIcon("/api/v1/teams/me/icon");
+    if (response.success) {
+      this.icon = "";
+      this.initial.icon = "";
+    }
   },
 
   async updateProfile() {

@@ -3,7 +3,10 @@
 {% block content %}
   <div class="jumbotron">
     <div class="container">
-      <h1 id="team-id" data-ctfd-team-id="{{ team.id }}">{{ team.name }}</h1>
+      <h1 id="team-id" data-ctfd-team-id="{{ team.id }}" class="team-heading">
+        {% include "components/team-avatar.html" %}
+        {{ team.name }}
+      </h1>
 
       {% if team.oauth_id %}
         <a href="https://majorleaguecyber.org/t/{{ team.name }}">

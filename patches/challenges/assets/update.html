@@ -1,1 +1,23 @@
 {% extends "admin/challenges/update.html" %}
+
+{% block category %}
+{{ super() }}
+<div class="form-group" data-challenge-icon>
+	<label>
+		Icon<br>
+		<small class="form-text text-muted">
+			Image shown on the challenge card. Upload a file or paste an image URL.
+		</small>
+	</label>
+	<input type="text" class="form-control chal-icon" name="icon" value="{{ challenge.icon | default('', true) }}" placeholder="https://... or /files/...">
+	<div class="custom-file mt-2">
+		<input type="file" class="custom-file-input" id="challenge-icon-file-update" accept="image/*" data-challenge-icon-upload>
+		<label class="custom-file-label" for="challenge-icon-file-update">Upload image</label>
+	</div>
+	<small class="form-text text-muted">PNG, JPG, GIF, WEBP or SVG. Max 2 MB.</small>
+	<div class="mt-2" data-icon-preview>
+		{% if challenge.icon %}<img src="{{ challenge.icon }}" alt="" style="max-height: 64px;">{% endif %}
+	</div>
+</div>
+<script src="{{ request.script_root }}/plugins/challenges/assets/icon.js"></script>
+{% endblock %}
