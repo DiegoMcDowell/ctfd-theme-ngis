@@ -5,6 +5,8 @@ import CTFd from "./index";
 
 import { Modal, Tab, Tooltip } from "bootstrap";
 import highlight from "./theme/highlight";
+import sidebar from "./challenges/sidebar";
+import { summarize, summarizeCategory } from "./challenges/stats";
 
 function addTargetBlank(html) {
   let dom = new DOMParser();
@@ -269,12 +271,18 @@ Alpine.data("Challenge", () => ({
 }));
 
 Alpine.data("ChallengeBoard", () => ({
+  ...sidebar(),
+
   loaded: false,
   challenges: [],
   challenge: null,
 
   async init() {
-    this.challenges = await CTFd.pages.challenges.getChallenges();
+    this.startCountdown();
+    [this.challenges] = await Promise.all([
+      CTFd.pages.challenges.getChallenges(),
+      this.loadSidebar(),
+    ]);
     this.loaded = true;
 
     if (window.location.hash) {
@@ -337,7 +345,18 @@ Alpine.data("ChallengeBoard", () => ({
   },
 
   async loadChallenges() {
-    this.challenges = await CTFd.pages.challenges.getChallenges();
+    [this.challenges] = await Promise.all([
+      CTFd.pages.challenges.getChallenges(),
+      this.loadSidebar(),
+    ]);
+  },
+
+  overallStats() {
+    return summarize(this.challenges);
+  },
+
+  categoryStats(category) {
+    return summarizeCategory(this.challenges, category);
   },
 
   async loadChallenge(challengeId) {

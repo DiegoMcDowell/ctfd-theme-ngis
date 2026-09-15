@@ -1,10 +1,11 @@
-@use "includes/utils/bootstrap-overrides" as *; 
+@use "includes/utils/bootstrap-overrides" as *;
 
 @use "includes/components/table";
 @use "includes/components/jumbotron";
 @use "includes/components/challenge";
 @use "includes/components/sticky-footer";
 @use "includes/components/graphs";
+@use "includes/components/progress";
 
 @use "includes/utils/fonts";
 @use "includes/utils/opacity";
@@ -15,6 +16,7 @@
 @use "includes/components/texts";
 @use "includes/components/borders";
 @use "includes/utils/colors";
+@use "includes/utils/alpine";
 
 @use "includes/icons/award-icons";
 @use "includes/icons/flag-icons";
@@ -22,6 +24,7 @@
 @use "includes/pages/dashboard/principal" as dashboard-page;
 @use "includes/pages/dashboard/clock";
 @use "includes/pages/scoreboard/principal" as scoreboard-page;
+@use "includes/pages/challenges" as challenges-page;
 
 h1,
 h2 {
@@ -59,5 +62,6 @@ select {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3e%3cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e");
   background-size: 8px 10px;
 }
-body { background-color: rgb(0, 0, 0) !important; }
-@import "includes/pages/challenges/challenges";
+body {
+  background-color: rgb(0, 0, 0) !important;
+}

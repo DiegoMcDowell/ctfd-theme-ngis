@@ -1,73 +1,234 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="jumbotron">
-    <div class="container">
-      <h1>
-        {% trans %}Challenges{% endtrans %}
-      </h1>
-    </div>
-  </div>
+  <section
+    id="challenges-page"
+    x-data="ChallengeBoard"
+    @load-challenges.window="loadChallenges()"
+    @load-challenge.window="loadChallenge($event.detail)"
+  >
+    <div
+      x-ref="challengeWindow" id="challenge-window" class="modal fade" tabindex="-1" role="dialog" x-data=""
+      x-html="$store.challenge.data.view"
+    ></div>
 
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        {% include "components/errors.html" %}
-      </div>
-    </div>
+    <div class="challenges-shell">
+      {% include "components/errors.html" %}
 
-    <div 
-      x-data="ChallengeBoard" 
-      @load-challenges.window="loadChallenges()" 
-      @load-challenge.window="loadChallenge($event.detail)"
-    >
-      <div
-          x-ref="challengeWindow" id="challenge-window" class="modal fade" tabindex="-1" role="dialog" x-data=""
-          x-html="$store.challenge.data.view"
-      ></div>
+      <div class="challenges-layout">
 
-      <div x-show="!loaded">
-        <div class="min-vh-50 d-flex align-items-center">
-          <div class="text-center w-100">
+        {# ───────────── Columna principal ───────────── #}
+        <div class="challenges-main">
+
+          {# Banner #}
+          <header class="challenges-hero">
+            <div>
+              <h1 class="challenges-hero__title">
+                Ciberseguridad
+                <span>en la oscuridad</span>
+              </h1>
+              <p class="challenges-hero__subtitle">
+                Un CTF donde las pistas esconden grandes secretos
+              </p>
+            </div>
+            <div class="challenges-hero__tagline">
+              <span>Aquí<br>también<br>se aprende</span>
+              <img
+                src="{{ url_for('views.themes', theme='custom-theme', path='img/ngis/shoot_logo.png') }}"
+                alt="">
+            </div>
+          </header>
+
+          {# Encabezado de sección #}
+          <div class="section-header">
+            <h2 class="section-header__title">
+              <i class="fas fa-map"></i>
+              {% trans %}Categorías{% endtrans %}
+            </h2>
+            <p class="section-header__motto">Explora · Resuelve · Conquista</p>
+          </div>
+
+          {# Loader #}
+          <div class="challenges-loader" x-show="!loaded">
             <i class="fas fa-circle-notch fa-spin fa-3x fa-fw spinner"></i>
           </div>
-        </div>
-      </div>
 
-      <div x-show="loaded">
-        <template x-for="(category, idx) in getCategories()" :key="idx">
-          <div class="pt-5">
-            <div class="category-header mb-3">
-              <h3 x-text="category"></h3>
-            </div>
+          {# Categorías + cards #}
+          <div x-show="loaded" x-cloak>
+            <template x-for="(category, idx) in getCategories()" :key="idx">
+              <section class="challenge-category">
+                <div class="challenge-category__header">
+                  <h3 class="challenge-category__title" x-text="category"></h3>
 
-            <div class="category-challenges d-flex flex-column">
-              <div class="challenges-row row">
-                <template x-for="(c, idx) in getChallenges(category)" :key="c.id">
-                  <div class="col-sm-6 col-md-4 col-lg-3 my-3">
+                  <div class="challenge-category__stats">
+                    <span class="challenge-category__count">
+                      <strong x-text="categoryStats(category).solved"></strong>/<span x-text="categoryStats(category).total"></span> {% trans %}desafíos{% endtrans %}
+                    </span>
+                    <div class="meter">
+                      <div class="meter__track">
+                        <span class="meter__fill" :style="`width: ${categoryStats(category).percent}%`"></span>
+                      </div>
+                    </div>
+                    <span class="challenge-category__points">
+                      <strong x-text="categoryStats(category).points"></strong> pts
+                    </span>
+                  </div>
+                </div>
+
+                <div class="challenge-category__grid">
+                  <template x-for="c in getChallenges(category)" :key="c.id">
                     <button
-                        class="challenge-button btn btn-dark w-100 h-100"
-                        :class="[
-                          c.solved_by_me ? 'challenge-solved' : '',
-                          ...c.tags.map((tag) => `tag-${tag.value.replace(/ /g, '-')}`),
-                        ];"
-                        :value="c.id" @click="loadChallenge(c.id)"
+                      type="button"
+                      class="challenge-card"
+                      :class="[
+                        c.solved_by_me ? 'is-solved' : '',
+                        ...c.tags.map((tag) => `tag-${tag.value.replace(/ /g, '-')}`),
+                      ]"
+                      :value="c.id"
+                      @click="loadChallenge(c.id)"
                     >
+                      <div class="challenge-card__head">
+                        <div class="challenge-card__icon">
+                          <template x-if="c.icon">
+                            <img :src="c.icon" alt="">
+                          </template>
+                          <template x-if="!c.icon">
+                            <i class="fas fa-flag"></i>
+                          </template>
+                        </div>
+                        <div class="challenge-card__info">
+                          <h4 class="challenge-card__name" x-text="c.name"></h4>
+                          <p class="challenge-card__meta">
+                            <span x-text="c.solves"></span>
+                            <span x-text="c.solves === 1 ? '{% trans %}resolución{% endtrans %}' : '{% trans %}resoluciones{% endtrans %}'"></span>
+                          </p>
+                          <div class="challenge-card__tags" x-show="c.tags.length">
+                            <template x-for="tag in c.tags" :key="tag.value">
+                              <span class="challenge-card__tag" x-text="tag.value"></span>
+                            </template>
+                          </div>
+                        </div>
+                      </div>
 
-                      <div class="challenge-inner my-3">
-                        <p x-text="c.name"></p>
-                        <span x-text="c.value"></span>
+                      <div class="challenge-card__foot">
+                        <span class="challenge-card__status">
+                          <i :class="c.solved_by_me ? 'fas fa-check-circle' : 'fas fa-lock'"></i>
+                          <span x-text="c.solved_by_me ? '{% trans %}Resuelto{% endtrans %}' : '{% trans %}Pendiente{% endtrans %}'"></span>
+                        </span>
+                        <span class="challenge-card__value"><span x-text="c.value"></span> pts</span>
+                        <span class="challenge-card__arrow"><i class="fas fa-arrow-right"></i></span>
                       </div>
                     </button>
-                  </div>
-                </template>
+                  </template>
+                </div>
+              </section>
+            </template>
+          </div>
+        </div>
+
+        {# ───────────── Sidebar ───────────── #}
+        <aside class="challenges-sidebar">
+
+          {# Tu equipo / Tu perfil #}
+          <section class="side-panel team-panel">
+            <div class="team-panel__identity">
+              <img
+                class="team-panel__flag"
+                src="{{ url_for('views.themes', theme='custom-theme', path='img/ngis/shoot_logo.png') }}"
+                alt="">
+              <div class="flex-grow-1" style="min-width: 0;">
+                <span class="team-panel__label">
+                  {% if Configs.user_mode == 'teams' %}
+                    {% trans %}Tu equipo{% endtrans %}
+                  {% else %}
+                    {% trans %}Tu perfil{% endtrans %}
+                  {% endif %}
+                </span>
+                <span class="team-panel__name" x-text="account ? account.name : '—'"></span>
+              </div>
+              <a
+                class="side-panel__link"
+                href="{% if Configs.user_mode == 'teams' %}{{ url_for('teams.private') }}{% else %}{{ url_for('users.private') }}{% endif %}">
+                {% trans %}Ver perfil{% endtrans %} <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+
+            <div class="team-panel__stats">
+              <div class="team-panel__stat">
+                <span class="team-panel__stat-value is-points" x-text="accountScore()"></span>
+                <span class="team-panel__stat-label">{% trans %}Puntos{% endtrans %}</span>
+              </div>
+              <div class="team-panel__stat">
+                <span class="team-panel__stat-value" x-text="`${overallStats().solved}/${overallStats().total}`"></span>
+                <span class="team-panel__stat-label">{% trans %}Retos{% endtrans %}</span>
+              </div>
+              <div class="team-panel__stat">
+                <span class="team-panel__stat-value" x-text="accountPlace()"></span>
+                <span class="team-panel__stat-label">{% trans %}Ranking{% endtrans %}</span>
+              </div>
+              <div class="team-panel__stat">
+                <span class="team-panel__stat-value" x-text="countdown"></span>
+                <span class="team-panel__stat-label">{% trans %}Tiempo{% endtrans %}</span>
               </div>
             </div>
-          </div>
-        </template>
+
+            <div class="meter">
+              <div class="meter__track">
+                <span class="meter__fill" :style="`width: ${overallStats().percent}%`"></span>
+              </div>
+              <span class="meter__label" x-text="`${overallStats().percent}%`"></span>
+            </div>
+
+            <p class="team-panel__quote">“El conocimiento también es un tesoro”</p>
+          </section>
+
+          {# Ranking general #}
+          {% if Configs.account_visibility != 'admins' and Configs.score_visibility != 'admins' %}
+            <section class="side-panel ranking-panel">
+              <div class="side-panel__header">
+                <h3 class="side-panel__title">
+                  <i class="fas fa-trophy"></i>
+                  {% trans %}Ranking general{% endtrans %}
+                </h3>
+                <a class="side-panel__link" href="{{ url_for('scoreboard.listing') }}">
+                  {% trans %}Ver todos{% endtrans %} <i class="fas fa-arrow-right"></i>
+                </a>
+              </div>
+
+              <table class="ranking-panel__table" x-show="ranking.length">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>
+                      {% if Configs.user_mode == 'teams' %}
+                        {% trans %}Equipo{% endtrans %}
+                      {% else %}
+                        {% trans %}Usuario{% endtrans %}
+                      {% endif %}
+                    </th>
+                    <th class="is-num">{% trans %}Puntos{% endtrans %}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <template x-for="entry in ranking" :key="entry.account_id">
+                    <tr :class="{ 'is-me': isMe(entry) }">
+                      <td x-text="entry.pos"></td>
+                      <td class="is-name" x-text="entry.name"></td>
+                      <td class="is-num" x-text="entry.score"></td>
+                    </tr>
+                  </template>
+                </tbody>
+              </table>
+
+              <p class="ranking-panel__empty" x-show="!ranking.length">
+                {% trans %}El marcador no está disponible por ahora.{% endtrans %}
+              </p>
+            </section>
+          {% endif %}
+        </aside>
       </div>
     </div>
-  </div>
+  </section>
 {% endblock %}
 
 {% block scripts %}

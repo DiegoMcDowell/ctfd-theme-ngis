@@ -1,0 +1,4 @@
+// Oculta elementos hasta que Alpine termina de inicializarlos
+[x-cloak] {
+  display: none !important;
+}
