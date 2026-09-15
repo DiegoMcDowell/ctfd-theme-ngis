@@ -5,443 +5,494 @@ $nav-offset: 3.5rem;
   display: flex;
   flex-direction: column;
   min-height: calc(100vh - #{$nav-offset});
-  min-height: calc(100svh - #{$nav-offset}); 
-  background-image:
-      linear-gradient(to right, #000 0%, rgba(0, 0, 0, 0.85) 8%, rgba(0, 0, 0, 0.4) 35%, transparent 20%),
-      url("/themes/custom-theme/static/img/ngis/background_scoreboard.png");
+  min-height: calc(100svh - #{$nav-offset});
+  background-image: linear-gradient(
+      to right,
+      #000 0%,
+      rgba(0, 0, 0, 0.85) 8%,
+      rgba(0, 0, 0, 0.4) 35%,
+      transparent 20%
+    ),
+    url("/themes/custom-theme/static/img/ngis/background_scoreboard.png");
   background-size: cover, cover;
   background-position: center, center;
   background-repeat: no-repeat, no-repeat;
 }
 
 .hero-scoreboard {
-    h1 {
-        font-size: 100px;
-        font-weight: 700;
-    }
+  h1 {
+    font-size: 100px;
+    font-weight: 700;
+  }
 }
 
 .hero-scoreboard-slogan {
-    color: c.$color-red-accent;
-    font-weight: 900;
-    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9), 0 0 12px rgba(0, 0, 0, 0.7);
-    font-size: 40px;
+  color: c.$color-red-accent;
+  font-weight: 900;
+  text-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.9),
+    0 0 12px rgba(0, 0, 0, 0.7);
+  font-size: 40px;
 }
 
 .scoreboard-graph-panel {
-    --cut: 22px;
+  --cut: 22px;
 
-    position: relative;
-    background-color: c.$color-panel-bg;
-    clip-path: polygon(
-        0 0,
-        calc(100% - var(--cut)) 0,
-        100% var(--cut),
-        100% 100%,
-        var(--cut) 100%,
-        0 calc(100% - var(--cut))
-    );
-    box-shadow: 0 0 25px c.$color-panel-glow;
-    padding: 1.25rem 1.5rem 1.5rem;
+  position: relative;
+  background-color: c.$color-panel-bg;
+  clip-path: polygon(
+    0 0,
+    calc(100% - var(--cut)) 0,
+    100% var(--cut),
+    100% 100%,
+    var(--cut) 100%,
+    0 calc(100% - var(--cut))
+  );
+  box-shadow: 0 0 25px c.$color-panel-glow;
+  padding: 1.25rem 1.5rem 1.5rem;
 
-    // Crisp border that follows the cut silhouette (border/border-radius
-    // can't do this, so it's a gradient masked to a ring shape instead).
-    &::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        clip-path: inherit;
-        padding: 1px;
-        background: c.$color-panel-border;
-        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-        -webkit-mask-composite: xor;
-        mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-        mask-composite: exclude;
-        pointer-events: none;
-    }
+  // Crisp border that follows the cut silhouette (border/border-radius
+  // can't do this, so it's a gradient masked to a ring shape instead).
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    clip-path: inherit;
+    padding: 1px;
+    background: c.$color-panel-border;
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+  }
 
-    // Glowing accent streak on the two cut corners. drop-shadow (not
-    // box-shadow) is used because it isn't clipped by the parent's
-    // clip-path, so the glow can actually bleed past the edge.
-    &::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        background:
-            linear-gradient(-45deg, transparent calc(100% - var(--cut) - 1.5px), c.$color-panel-border calc(100% - var(--cut) - 1.5px), c.$color-panel-border calc(100% - var(--cut) + 1.5px), transparent calc(100% - var(--cut) + 1.5px)) top right / var(--cut) var(--cut) no-repeat,
-            linear-gradient(-45deg, transparent calc(var(--cut) - 1.5px), c.$color-panel-border calc(var(--cut) - 1.5px), c.$color-panel-border calc(var(--cut) + 1.5px), transparent calc(var(--cut) + 1.5px)) bottom left / var(--cut) var(--cut) no-repeat;
-        filter: drop-shadow(0 0 6px c.$color-panel-border);
-        pointer-events: none;
-    }
+  // Glowing accent streak on the two cut corners. drop-shadow (not
+  // box-shadow) is used because it isn't clipped by the parent's
+  // clip-path, so the glow can actually bleed past the edge.
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background:
+      linear-gradient(
+          -45deg,
+          transparent calc(100% - var(--cut) - 1.5px),
+          c.$color-panel-border calc(100% - var(--cut) - 1.5px),
+          c.$color-panel-border calc(100% - var(--cut) + 1.5px),
+          transparent calc(100% - var(--cut) + 1.5px)
+        )
+        top right / var(--cut) var(--cut) no-repeat,
+      linear-gradient(
+          -45deg,
+          transparent calc(var(--cut) - 1.5px),
+          c.$color-panel-border calc(var(--cut) - 1.5px),
+          c.$color-panel-border calc(var(--cut) + 1.5px),
+          transparent calc(var(--cut) + 1.5px)
+        )
+        bottom left / var(--cut) var(--cut) no-repeat;
+    filter: drop-shadow(0 0 6px c.$color-panel-border);
+    pointer-events: none;
+  }
 }
 
 .scoreboard-graph-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+
+  .scoreboard-graph-title {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    margin-bottom: 1rem;
+    gap: 0.6rem;
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: c.$color-white;
 
-    .scoreboard-graph-title {
-        display: flex;
-        align-items: center;
-        gap: 0.6rem;
-        margin: 0;
-        font-size: 1.1rem;
-        font-weight: 700;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        color: c.$color-white;
-
-        i {
-            color: c.$color-panel-border;
-        }
+    i {
+      color: c.$color-panel-border;
     }
+  }
 }
 
 .scoreboard-graph-controls {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .scoreboard-range-group {
-    display: flex;
-    background-color: c.$color-control-bg;
-    border: 1px solid c.$color-control-border;
-    border-radius: 6px;
-    overflow: hidden;
+  display: flex;
+  background-color: c.$color-control-bg;
+  border: 1px solid c.$color-control-border;
+  border-radius: 6px;
+  overflow: hidden;
 
-    button {
-        background: transparent;
-        border: none;
-        color: c.$color-text-muted;
-        font-size: 0.75rem;
-        font-weight: 600;
-        letter-spacing: 0.5px;
-        padding: 0.35rem 0.75rem;
-        cursor: pointer;
-        transition: background-color 0.15s ease, color 0.15s ease;
+  button {
+    background: transparent;
+    border: none;
+    color: c.$color-text-muted;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 0.35rem 0.75rem;
+    cursor: pointer;
+    transition:
+      background-color 0.15s ease,
+      color 0.15s ease;
 
-        &:hover {
-            color: c.$color-white;
-            background-color: rgba(255, 255, 255, 0.08);
-        }
-
-        &.active {
-            color: c.$color-white;
-            background-color: c.$color-panel-border;
-        }
-
-        & + button {
-            border-left: 1px solid c.$color-control-border;
-        }
+    &:hover {
+      color: c.$color-white;
+      background-color: rgba(255, 255, 255, 0.08);
     }
+
+    &.active {
+      color: c.$color-white;
+      background-color: c.$color-panel-border;
+    }
+
+    & + button {
+      border-left: 1px solid c.$color-control-border;
+    }
+  }
 }
 
 .scoreboard-graph-tools {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+
+  button {
     display: flex;
     align-items: center;
-    gap: 0.4rem;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    background-color: c.$color-control-bg;
+    border: 1px solid c.$color-control-border;
+    border-radius: 6px;
+    color: c.$color-text-muted;
+    cursor: pointer;
+    transition:
+      background-color 0.15s ease,
+      color 0.15s ease,
+      border-color 0.15s ease;
 
-    button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 30px;
-        height: 30px;
-        background-color: c.$color-control-bg;
-        border: 1px solid c.$color-control-border;
-        border-radius: 6px;
-        color: c.$color-text-muted;
-        cursor: pointer;
-        transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
-
-        &:hover {
-            color: c.$color-white;
-            border-color: c.$color-panel-border;
-            box-shadow: 0 0 8px c.$color-panel-glow-strong;
-        }
+    &:hover {
+      color: c.$color-white;
+      border-color: c.$color-panel-border;
+      box-shadow: 0 0 8px c.$color-panel-glow-strong;
     }
+  }
 }
 
 #score-graph {
-    width: 100%;
+  width: 100%;
 
-    &.d-flex {
-        display: block !important;
-    }
+  &.d-flex {
+    display: block !important;
+  }
 }
 
 .scoreboard-top-cards {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 1rem;
-    margin-bottom: 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 1rem;
 
-    @media (max-width: 992px) {
-        grid-template-columns: repeat(2, 1fr);
-    }
+  @media (max-width: 992px) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+  }
 
-    @media (max-width: 576px) {
-        grid-template-columns: 1fr;
-    }
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .scoreboard-top-card {
-    --accent: #{c.$color-red-accent};
+  --accent: #{c.$color-red-accent};
 
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    background-color: c.$color-panel-bg;
-    border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
-    border-radius: 10px;
-    padding: 1rem 1.1rem;
-    text-decoration: none;
-    box-shadow: 0 0 18px color-mix(in srgb, var(--accent) 20%, transparent);
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
-    overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  background-color: c.$color-panel-bg;
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  border-radius: 14px;
+  padding: 1.5rem 1.75rem;
+  min-height: 150px;
+  text-decoration: none;
+  box-shadow: 0 0 18px color-mix(in srgb, var(--accent) 20%, transparent);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+  overflow: hidden;
 
-    &::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        right: 0;
-        height: 2px;
-        top: -10%;
-        background: linear-gradient(90deg, transparent, var(--accent), transparent);
-        box-shadow: 0 0 10px 1px var(--accent);
-        animation: scoreboard-card-scanline 2.8s ease-in-out infinite;
-        pointer-events: none;
-    }
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 2px;
+    top: -10%;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    box-shadow: 0 0 10px 1px var(--accent);
+    animation: scoreboard-card-scanline 2.8s ease-in-out infinite;
+    pointer-events: none;
+  }
 
-    &:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 0 24px color-mix(in srgb, var(--accent) 40%, transparent);
-    }
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 24px color-mix(in srgb, var(--accent) 40%, transparent);
+  }
 }
 
 @keyframes scoreboard-card-scanline {
-    0% {
-        top: -10%;
-        opacity: 0;
-    }
-    15% {
-        opacity: 1;
-    }
-    85% {
-        opacity: 1;
-    }
-    100% {
-        top: 105%;
-        opacity: 0;
-    }
+  0% {
+    top: -10%;
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    top: 105%;
+    opacity: 0;
+  }
 }
 
 .scoreboard-top-card-rank {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    flex-shrink: 0;
-    clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
-    background-color: color-mix(in srgb, var(--accent) 25%, c.$color-panel-bg);
-    color: var(--accent);
-    font-weight: 700;
-    font-size: 0.9rem;
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+  background-color: color-mix(in srgb, var(--accent) 25%, c.$color-panel-bg);
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 0.9rem;
 }
 
 .scoreboard-top-card-info {
-    display: flex;
-    flex-direction: column;
-    gap: 0.15rem;
-    min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 0;
+  flex: 1;
 }
 
 .scoreboard-top-card-name {
-    font-weight: 700;
-    font-size: 0.9rem;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    color: var(--accent);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  font-weight: 800;
+  font-size: clamp(1.1rem, 1.6vw, 1.5rem);
+  line-height: 1.15;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--accent);
+  overflow-wrap: anywhere;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .scoreboard-top-card-score {
-    display: flex;
-    align-items: baseline;
-    gap: 0.3rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.3rem;
 }
 
 .scoreboard-top-card-score-value {
-    font-size: 1.4rem;
-    font-weight: 800;
-    color: var(--accent);
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--accent);
 }
 
 .scoreboard-top-card-score-label {
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    color: c.$color-text-muted;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: c.$color-text-muted;
 }
 
 .scoreboard-top-card-avatar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 46px;
-    height: 46px;
-    flex-shrink: 0;
-    margin-left: auto;
-    border-radius: 50%;
-    background-color: color-mix(in srgb, var(--accent) 15%, c.$color-panel-bg);
-    border: 1px solid color-mix(in srgb, var(--accent) 55%, transparent);
-    color: var(--accent);
-    font-size: 1.1rem;
-    overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 96px;
+  height: 96px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background-color: color-mix(in srgb, var(--accent) 15%, c.$color-panel-bg);
+  border: 2px solid color-mix(in srgb, var(--accent) 65%, transparent);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--accent) 35%, transparent);
+  color: var(--accent);
+  font-size: 2.2rem;
+  overflow: hidden;
 
-    img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 }
 
 .scoreboard-toggle-all {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    width: 100%;
-    background-color: c.$color-panel-bg;
-    border: 1px solid c.$color-control-border;
-    border-radius: 8px;
-    color: c.$color-text-muted;
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    cursor: pointer;
-    padding: 0.6rem 1rem;
-    transition: color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  background-color: c.$color-panel-bg;
+  border: 1px solid c.$color-control-border;
+  border-radius: 8px;
+  color: c.$color-text-muted;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 0.6rem 1rem;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
 
-    i {
-        transition: transform 0.15s ease;
-    }
+  i {
+    transition: transform 0.15s ease;
+  }
 
-    &.active i {
-        transform: rotate(180deg);
-    }
+  &.active i {
+    transform: rotate(180deg);
+  }
 
-    &:hover,
-    &:focus-visible {
-        color: c.$color-white;
-        border-color: c.$color-panel-border;
-        box-shadow: 0 0 12px c.$color-panel-glow;
-    }
+  &:hover,
+  &:focus-visible {
+    color: c.$color-white;
+    border-color: c.$color-panel-border;
+    box-shadow: 0 0 12px c.$color-panel-glow;
+  }
 
-    &:focus-visible {
-        outline: none;
-    }
+  &:focus-visible {
+    outline: none;
+  }
 }
 
 .scoreboard-standings-panel {
-    background-color: c.$color-panel-bg;
-    border: 1px solid c.$color-panel-border;
-    border-radius: 12px;
-    box-shadow: 0 0 25px c.$color-panel-glow;
-    padding: 0.5rem 1.25rem 1.25rem;
-    margin-top: 1rem;
+  background-color: c.$color-panel-bg;
+  border: 1px solid c.$color-panel-border;
+  border-radius: 12px;
+  box-shadow: 0 0 25px c.$color-panel-glow;
+  padding: 0.5rem 1.25rem 1.25rem;
+  margin-top: 1rem;
 }
 
 .scoreboard-bracket-nav {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    padding: 1rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 1rem 0;
 
-    .nav-link {
-        background-color: transparent;
-        border: 1px solid c.$color-control-border;
-        border-radius: 6px;
-        color: c.$color-red-accent;
-        font-size: 0.85rem;
-        font-weight: 600;
-        padding: 0.5rem 1rem;
-        transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  .nav-link {
+    background-color: transparent;
+    border: 1px solid c.$color-control-border;
+    border-radius: 6px;
+    color: c.$color-red-accent;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    transition:
+      background-color 0.15s ease,
+      color 0.15s ease,
+      border-color 0.15s ease;
 
-        &:hover {
-            color: c.$color-white;
-            border-color: c.$color-panel-border;
-        }
-
-        &.active {
-            background-color: c.$color-panel-border;
-            border-color: c.$color-panel-border;
-            color: c.$color-white;
-        }
+    &:hover {
+      color: c.$color-white;
+      border-color: c.$color-panel-border;
     }
+
+    &.active {
+      background-color: c.$color-panel-border;
+      border-color: c.$color-panel-border;
+      color: c.$color-white;
+    }
+  }
 }
 
 .scoreboard-standings-table {
+  color: c.$color-white;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  border-radius: 8px;
+
+  thead th {
+    background-color: c.$color-control-bg;
+    color: c.$color-text-muted;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    border-bottom: 1px solid c.$color-control-border;
+    padding-top: 0.85rem;
+    padding-bottom: 0.85rem;
+  }
+
+  tbody tr {
+    background-color: c.$color-panel-bg;
+
+    &:nth-of-type(odd) {
+      background-color: c.$color-control-bg;
+    }
+
+    &:hover {
+      background-color: color-mix(
+        in srgb,
+        c.$color-panel-border 12%,
+        c.$color-panel-bg
+      );
+    }
+  }
+
+  tbody td,
+  tbody th {
+    border-bottom: 1px solid c.$color-control-border;
     color: c.$color-white;
-    border-collapse: separate;
-    border-spacing: 0;
-    overflow: hidden;
-    border-radius: 8px;
+  }
 
-    thead th {
-        background-color: c.$color-control-bg;
-        color: c.$color-text-muted;
-        font-size: 0.75rem;
-        font-weight: 700;
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
-        border-bottom: 1px solid c.$color-control-border;
-        padding-top: 0.85rem;
-        padding-bottom: 0.85rem;
+  tbody tr:last-child td,
+  tbody tr:last-child th {
+    border-bottom: none;
+  }
+
+  tbody a {
+    color: c.$color-red-accent;
+    text-decoration: none;
+    font-weight: 600;
+
+    &:hover {
+      text-decoration: underline;
     }
-
-    tbody tr {
-        background-color: c.$color-panel-bg;
-
-        &:nth-of-type(odd) {
-            background-color: c.$color-control-bg;
-        }
-
-        &:hover {
-            background-color: color-mix(in srgb, c.$color-panel-border 12%, c.$color-panel-bg);
-        }
-    }
-
-    tbody td,
-    tbody th {
-        border-bottom: 1px solid c.$color-control-border;
-        color: c.$color-white;
-    }
-
-    tbody tr:last-child td,
-    tbody tr:last-child th {
-        border-bottom: none;
-    }
-
-    tbody a {
-        color: c.$color-red-accent;
-        text-decoration: none;
-        font-weight: 600;
-
-        &:hover {
-            text-decoration: underline;
-        }
-    }
+  }
 }

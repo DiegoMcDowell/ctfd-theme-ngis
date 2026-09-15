@@ -47,13 +47,6 @@
           <template x-for="(standing, index) in topStandings()" :key="standing.account_id">
             <a class="scoreboard-top-card" :href="standing.account_url" :style="{'--accent': accentColor(standing)}">
               <span class="scoreboard-top-card-rank" x-text="index + 1"></span>
-              <span class="scoreboard-top-card-info">
-                <span class="scoreboard-top-card-name" x-text="standing.name"></span>
-                <span class="scoreboard-top-card-score">
-                  <span class="scoreboard-top-card-score-value" x-text="standing.score"></span>
-                  <span class="scoreboard-top-card-score-label">{% trans %}PTS{% endtrans %}</span>
-                </span>
-              </span>
               <span class="scoreboard-top-card-avatar">
                 <template x-if="standing.icon">
                   <img :src="standing.icon" alt="">
@@ -61,6 +54,13 @@
                 <template x-if="!standing.icon">
                   <i class="fas fa-skull"></i>
                 </template>
+              </span>
+              <span class="scoreboard-top-card-info">
+                <span class="scoreboard-top-card-name" x-text="standing.name"></span>
+                <span class="scoreboard-top-card-score">
+                  <span class="scoreboard-top-card-score-value" x-text="standing.score"></span>
+                  <span class="scoreboard-top-card-score-label">{% trans %}PTS{% endtrans %}</span>
+                </span>
               </span>
             </a>
           </template>

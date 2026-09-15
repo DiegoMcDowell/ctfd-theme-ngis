@@ -91,11 +91,13 @@ Alpine.data("ScoreboardList", () => ({
   showAll: false,
 
   filteredStandings() {
-    return this.standings.filter(i => this.activeBracket ? i.bracket_id == this.activeBracket : true);
+    return this.standings.filter(i =>
+      this.activeBracket ? i.bracket_id == this.activeBracket : true,
+    );
   },
 
   topStandings() {
-    return this.filteredStandings().slice(0, 5);
+    return this.filteredStandings().slice(0, 3);
   },
 
   accentColor(standing) {
