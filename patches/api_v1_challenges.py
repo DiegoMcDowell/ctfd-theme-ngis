@@ -265,6 +265,7 @@ class ChallengeList(Resource):
                     "solves": solve_counts.get(challenge.id, solve_count_dfl),
                     "solved_by_me": challenge.id in user_solves,
                     "category": challenge.category,
+                    "icon": challenge.icon,
                     "module_id": challenge.module_id,
                     "tags": challenge.tags,
                     "template": challenge_type.templates["view"],
